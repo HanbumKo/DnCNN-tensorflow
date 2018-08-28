@@ -6,6 +6,10 @@ import tensorflow as tf
 from model import denoiser
 from utils import *
 
+import os
+os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"   # see issue #152#
+os.environ["CUDA_VISIBLE_DEVICES"] = "1 ,2 ,4"
+
 parser = argparse.ArgumentParser(description='')
 parser.add_argument('--epoch', dest='epoch', type=int, default=50, help='# of epoch')
 parser.add_argument('--batch_size', dest='batch_size', type=int, default=128, help='# images in batch')
@@ -32,7 +36,7 @@ def denoiser_train(denoiser, lr):
 
 
 def denoiser_test(denoiser):
-    test_files = glob('./data/test/{}/*.png'.format(args.test_set))
+    test_files = glob('./data/test/Set12/*.png'.format(args.test_set))
     denoiser.test(test_files, ckpt_dir=args.ckpt_dir, save_dir=args.test_dir)
 
 

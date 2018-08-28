@@ -2,6 +2,8 @@ import time
 
 from utils import *
 
+xrange = range
+
 
 def dncnn(input, is_training=True, output_channels=1):
     with tf.variable_scope('block1'):
